@@ -1,0 +1,12 @@
+.venv/
+venv/
+*venv*
+*env*
+*pycache*
+.idea/
+*cache*
+cache
+pychache
+*pychache*
+postgres/data/*
+
