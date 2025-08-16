@@ -1,0 +1,8 @@
+prompt1:
+I wanna make a reset password page for users in my django app, in which when the user requests to reset,
+an email send to him, the email has a url(and the url contains a jwt token based on user's info) when the user click on it,
+it directs him to a page for reseting password
+
+Note:
+It starts with that prompt and then some of the output parts
+changed manually.

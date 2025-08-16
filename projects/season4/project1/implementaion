@@ -1,0 +1,19 @@
+Description:
+For implementing reset password, I use redis as a broker,
+celery as multiprocessing(for sending email).
+
+Working process:
+When the client clicks on url (تغییر رمز عبور) on navbar(profile icon dropdown),
+a mail will be sent to his email address. The email contains
+a url that includes a jwt token. When the client clicks the url,
+a new page will be opened and if the token is valid, a form will be
+shown to change password, otherwise it shows an error.
+
+Note:
+The reset password process can be used when the client is logged in.
+
+Implementation process:
+I have experienced to implement this task from the course
+(django advance ali-bigdeli), although I use celery and redis documentaion,
+and chat-gpt to implement the task.
+
