@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from django.contrib.messages import constants as messages
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -38,6 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'mail_templated',
+
+    'app_account',
+    'app_website',
 ]
 
 MIDDLEWARE = [
@@ -117,6 +124,9 @@ USE_I18N = True
 USE_TZ = True
 
 
+# user model
+AUTH_USER_MODEL = 'app_account.User'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -142,5 +152,27 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool, default=False)
 EMAIL_HOST = config('EMAIL_HOST', default="smtp4dev")  # if using a service in docker compose
 EMAIL_PORT = config('EMAIL_PORT', default="25")
-EMAIL_HOST_USER = config('EMAIL_HOST_USER', default="")
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='me@gmail.com')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default="")
+
+
+# messages
+MESSAGE_TAGS = {
+    messages.DEBUG: "alert-secondary",
+    messages.INFO: "alert-info",
+    messages.SUCCESS: "color_green",
+    messages.WARNING: "alert-warning",
+    messages.ERROR: "color_mid",
+}
+
+# celery configs
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_TASK_TRACK_STARTED = True
+
+# cache services(using redis)
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://redis:6379/1",
+    }
+}

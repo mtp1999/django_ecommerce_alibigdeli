@@ -51,6 +51,29 @@ services:
       #Specifies the server hostname. Used in auto-generated TLS certificate if enabled.
       - ServerOptions__HostName=smtp4dev
 
+  redis:
+    image: redis:7.0
+    container_name: django_ecommerce_redis
+    ports:
+      - "6379:6379"
+    restart: on-failure
+    depends_on:
+      - backend
+
+  celery_worker:
+    container_name: django_ecommerce_celery_worker
+    image: django_ecommerce_celery_worker
+    build:
+      context: .
+      dockerfile: ./dockerfiles/dev/django/dockerfile
+    volumes:
+      - ./core:/app
+    command: celery -A core worker --loglevel=info
+    restart: always
+    depends_on:
+      - backend
+      - redis
+
 
 volumes:
   smtp4dev-data:
