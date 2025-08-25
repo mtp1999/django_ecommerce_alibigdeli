@@ -69,16 +69,17 @@
             <!-- End Dropdown -->
 
             <li class="nav-item">
-              <a class="nav-link " href="/product-overview.html">بررسی اجمالی محصولات</a>
+              <a class="nav-link" href="{% url 'app_shop:product_grid' %}">لیست محصولات</a>
             </li>
 
-            <!-- Pages -->
-            <li class="hs-has-mega-menu nav-item" data-hs-mega-menu-item-options='{
-                  "desktop": {
-                    "position": "right",
-                    "maxWidth": "27rem"
-                  }
-                }'>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'app_website:about' %}">درباره ما</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'app_website:contact' %}">ارتباط با ما</a>
+            </li>
+
               <a id="pagesMegaMenu" class="hs-mega-menu-invoker nav-link dropdown-toggle " aria-current="page" href="#"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false">صفحات</a>
 
@@ -373,14 +374,14 @@
 
           <div class="mb-7">
             <!-- Form -->
-            <form>
+            <form method="get" action="{% url 'app_shop:product_grid' %}">
               <!-- Input Card -->
               <div class="input-card">
                 <div class="input-card-form">
-                  <input type="text" class="form-control form-control-lg" placeholder="جستجو محصولات"
+                  <input type="text" class="form-control form-control-lg" name="title_q" placeholder="جستجو محصولات"
                     aria-label="جستجو محصولات">
                 </div>
-                <button type="button" class="btn btn-primary btn-lg">جستجو کردن</button>
+                <button type="submit" class="btn btn-primary btn-lg">جستجو کردن</button>
               </div>
               <!-- End Input Card -->
             </form>
@@ -604,10 +605,10 @@
       })
     })()
   </script>
+{% block extra_js %}{% endblock %}
 
 </body>
 
 </html>
 
 
-{% block extra_js %}{% endblock %}

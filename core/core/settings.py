@@ -45,6 +45,7 @@ INSTALLED_APPS = [
 
     'app_account',
     'app_website',
+    'app_shop',
 ]
 
 MIDDLEWARE = [
@@ -131,6 +132,7 @@ AUTH_USER_MODEL = 'app_account.User'
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+MEDIA_URL = 'media/'
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_ROOT = BASE_DIR / "media"
