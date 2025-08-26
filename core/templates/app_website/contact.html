@@ -128,15 +128,16 @@
                         <!-- End Heading -->
 
                         <!-- Form -->
-                        <form>
+                        <form method="post" action="">
+                            {% csrf_token %}
                             <div class="row gx-3">
                                 <div class="col-sm-6">
                                     <!-- Form -->
                                     <div class="mb-3">
-                                        <label class="form-label" for="hireUsFormFirstName">نام</label>
+                                        <label class="form-label" for="first_name">نام</label>
                                         <input type="text" class="form-control form-control-lg"
-                                            name="hireUsFormNameFirstName" id="hireUsFormFirstName"
-                                            placeholder="نام" aria-label="First name">
+                                            name="first_name" id="first_name"
+                                            placeholder="نام" aria-label="First name" required>
                                     </div>
                                     <!-- End Form -->
                                 </div>
@@ -145,10 +146,10 @@
                                 <div class="col-sm-6">
                                     <!-- Form -->
                                     <div class="mb-3">
-                                        <label class="form-label" for="hireUsFormLasttName">نام خانوادگی</label>
+                                        <label class="form-label" for="last_name">نام خانوادگی</label>
                                         <input type="text" class="form-control form-control-lg"
-                                            name="hireUsFormNameLastName" id="hireUsFormLasttName"
-                                            placeholder="نام خانوادگی" aria-label="Last name">
+                                            name="last_name" id="last_name"
+                                            placeholder="نام خانوادگی" aria-label="Last name" required>
                                     </div>
                                     <!-- End Form -->
                                 </div>
@@ -160,10 +161,10 @@
                                 <div class="col-sm-6">
                                     <!-- Form -->
                                     <div class="mb-3">
-                                        <label class="form-label" for="hireUsFormWorkEmail">آدرس ایمیل</label>
+                                        <label class="form-label" for="email">آدرس ایمیل</label>
                                         <input type="email" class="form-control form-control-lg"
-                                            name="hireUsFormNameWorkEmail" id="hireUsFormWorkEmail"
-                                            placeholder="email@site.com" aria-label="email@site.com">
+                                            name="email" id="email"
+                                            placeholder="email@site.com" aria-label="email@site.com" required>
                                     </div>
                                     <!-- End Form -->
                                 </div>
@@ -172,11 +173,10 @@
                                 <div class="col-sm-6">
                                     <!-- Form -->
                                     <div class="mb-3">
-                                        <label class="form-label" for="hireUsFormPhone">شماره همراه <span
-                                                class="form-label-secondary">(اختیاری)</span></label>
+                                        <label class="form-label" for="phone">شماره همراه </label>
                                         <input type="text" class="form-control form-control-lg"
-                                            name="hireUsFormNamePhone" id="hireUsFormPhone"
-                                            placeholder="+9891200000">
+                                            name="phone" id="phone"
+                                            placeholder="09123456789" required>
                                     </div>
                                     <!-- End Form -->
                                 </div>
@@ -186,10 +186,10 @@
 
                             <!-- Form -->
                             <div class="mb-3">
-                                <label class="form-label" for="hireUsFormDetails">توضیحات</label>
-                                <textarea class="form-control form-control-lg" name="hireUsFormNameDetails"
-                                    id="hireUsFormDetails" placeholder="توضیحات خود را وارد نمایید"
-                                    aria-label="Tell us about your ..." rows="4"></textarea>
+                                <label class="form-label" for="message">توضیحات</label>
+                                <textarea class="form-control form-control-lg" name="message"
+                                    id="message" placeholder="توضیحات خود را وارد نمایید"
+                                    aria-label="Tell us about your ..." rows="4" required></textarea>
                             </div>
                             <!-- End Form -->
 
