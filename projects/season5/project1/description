@@ -1,0 +1,6 @@
+https://github.com/mtp1999/django_ecommerce_alibigdeli/tree/season5_project1
+
+
+in app_website:
+-in IndexView, if you send a post method, a newsletter form will be sent
+-creating ContactView for contact
