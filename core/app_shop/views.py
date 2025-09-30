@@ -1,8 +1,8 @@
 import django.views.generic as cbv
-from app_shop.models import Product, ProductStatusType
 from django.db.models import ExpressionWrapper, fields
 from django.db.models import F
-
+from app_shop.models import Product, ProductStatusType
+from app_cart.cart import CartSession
 
 class ProductGridView(cbv.ListView):
     template_name = 'app_shop/product_grid.html'
@@ -53,3 +53,11 @@ class ProductGridView(cbv.ListView):
 class ProductDetailView(cbv.DetailView):
     template_name = 'app_shop/product_detail.html'
     model = Product
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cart = CartSession(self.request.session)
+        context['check_product_in_cart'] = cart.check_product_in_cart(self.get_object().id)
+        context['cart_item_quantity'] = cart.get_cart_item_quantity(self.get_object().id)
+        return context
+

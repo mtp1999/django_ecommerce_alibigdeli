@@ -1,6 +1,31 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import User, Profile
+from django.contrib.sessions.models import Session
+from django.contrib.auth import get_user_model
+
+
+@admin.register(Session)
+class SessionAdmin(admin.ModelAdmin):
+    list_display = ('session_key', 'user', 'get_decoded', 'expire_date')
+    ordering = ('-expire_date',)
+    readonly_fields = ('user', 'get_decoded')
+
+    def user(self, obj):
+        data = obj.get_decoded()
+        user_id = data.get('_auth_user_id')
+        if user_id:
+            try:
+                return User.objects.get(pk=user_id)
+            except User.DoesNotExist:
+                return "Unknown"
+        return "Anonymous"
+
+    user.short_description = "User"
+
+    def get_decoded(self, obj):
+        return obj.get_decoded()
+    get_decoded.short_description = "Data"
 
 
 class CustomUserAdmin(UserAdmin):

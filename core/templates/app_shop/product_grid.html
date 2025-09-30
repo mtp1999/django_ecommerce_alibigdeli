@@ -231,7 +231,7 @@
                   </a>
                   <!-- End Rating -->
 
-                  <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill">افزودن به سبد خرید</button>
+                  <button type="button" class="btn btn-outline-primary btn-sm btn-transition rounded-pill" onclick="addToCart({{ object.pk }}, '{% url 'app_cart:session_add_product' %}', '{{ csrf_token }}')">افزودن به سبد خرید</button>
                 </div>
               </div>
               <!-- End Card -->

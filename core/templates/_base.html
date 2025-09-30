@@ -137,11 +137,10 @@
               <!-- End Search -->
 
               <!-- Shopping Cart -->
-              <button type="button" class="btn btn-ghost-secondary btn-icon" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbarShoppingCart" aria-controls="offcanvasNavbarShoppingCart">
+              <a class="btn btn-ghost-secondary btn-icon" href="{% url 'app_cart:session_cart_summary' %}">
                 <i class="bi-basket"></i>
-                <span class="cart-item-count ">3</span>
-              </button>
+                <span class="cart-item-count" id="cart_total_quantity">{{ cart.get_cart_total_quantity }}</span>
+              </a>
               <!-- End Shopping Cart -->
 
                 {% if request.user.is_authenticated %}
@@ -676,6 +675,7 @@
       })
     })()
   </script>
+  <script src="{% static 'js/cart.js' %}"></script>
 {% block extra_js %}{% endblock %}
 
 </body>
