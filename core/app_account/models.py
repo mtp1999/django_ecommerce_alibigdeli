@@ -4,6 +4,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
     PermissionsMixin,
 )
+import os
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -74,18 +75,21 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField("User", on_delete=models.CASCADE, primary_key=True)
+    user = models.OneToOneField("User", on_delete=models.CASCADE, primary_key=True, related_name='user_profile')
     first_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255, null=True, blank=True)
+    image = models.ImageField(default='defaults/default_profile.jpg', upload_to='profiles/images/', null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-    phone_number = models.CharField(max_length=11, validators=[CustomValidations.validate_phone_number])
+    phone_number = models.CharField(max_length=11, validators=[CustomValidations.validate_phone_number], null=True, blank=True)
 
     def __str__(self):
         return self.user.email
 
     def full_name(self):
-        return self.first_name + ' ' + self.last_name
+        if self.first_name and self.last_name:
+            return self.first_name + ' ' + self.last_name
+        return self.user.email
 
 
 @receiver(post_save, sender=User)

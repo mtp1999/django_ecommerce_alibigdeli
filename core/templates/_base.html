@@ -57,17 +57,6 @@
               <a class="nav-link active" href="{% url 'app_website:index' %}">صفحه اصلی</a>
             </li>
 
-            <!-- Dropdown -->
-            <li class="hs-has-sub-menu nav-item">
-              <a id="listingsDropdown" class="hs-mega-menu-invoker nav-link dropdown-toggle " href="#" role="button"
-                data-bs-toggle="dropdown" aria-expanded="false">لیست محصولات</a>
-              <div class="hs-sub-menu dropdown-menu" aria-labelledby="listingsDropdown" style="min-width: 14rem;">
-                <a class="dropdown-item " href="/products-list.html">فهرست</a>
-                <a class="dropdown-item " href="/products-grid.html">فهرست (شبکه)</a>
-              </div>
-            </li>
-            <!-- End Dropdown -->
-
             <li class="nav-item">
               <a class="nav-link" href="{% url 'app_shop:product_grid' %}">لیست محصولات</a>
             </li>
@@ -148,12 +137,12 @@
 
                   <button class="btn btn-icon btn-ghost-secondary align-items-center text-decoration-none" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                     <span class="avatar avatar-sm avatar-circle">
-                      <img class="avatar-img" src="{% static '/img/160x160/img10.jpg' %}" alt="Image Description">
+                      <img class="avatar-img" src="{{ request.user.user_profile.image.url }}" alt="Image Description">
                     </span>
                   </button>
 
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                    <li><a class="dropdown-item" href="">پروفایل</a></li>
+                    <li><a class="dropdown-item" href="{% url 'app_dashboard:home' %}">پروفایل</a></li>
                     <li><a class="dropdown-item" href="{% url 'app_account:reset_password_send_email' %}">تغییر رمز عبور</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{% url 'app_account:logout' %}">خروج</a></li>

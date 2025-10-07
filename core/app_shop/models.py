@@ -27,7 +27,7 @@ class Product(models.Model):
     category = models.ManyToManyField(to=ProductCategory, db_table='app_shop_product_category')
     title = models.CharField(max_length=255)
     slug = models.SlugField(allow_unicode=True)
-    image = models.ImageField(default='defaults/product.png', upload_to='products/main_image/')
+    image = models.ImageField(default='defaults/product.png', upload_to='products/main_image/', null=True, blank=True)
     stock = models.PositiveIntegerField(default=0)
     price = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     discount_percent = models.IntegerField(default=0)
@@ -64,51 +64,3 @@ class ProductImage(models.Model):
 
     def __str__(self):
         return str(self.id) + '-' + str(self.product.title)
-
-
-@receiver(models.signals.post_delete, sender=Product)
-def auto_delete_file_on_delete(sender, instance, **kwargs):
-    if instance.image:
-        if os.path.isfile(instance.image.path):
-            os.remove(instance.image.path)
-
-
-@receiver(models.signals.pre_save, sender=Product)
-def auto_delete_file_on_change(sender, instance, **kwargs):
-    if not instance.pk:
-        return False
-    try:
-        old_file = Product.objects.get(pk=instance.pk).image
-    except Product.DoesNotExist:
-        return False
-    try:
-        new_file = instance.image
-        if not old_file == new_file:
-            if os.path.isfile(old_file.path):
-                os.remove(old_file.path)
-    except:
-        pass
-
-
-@receiver(models.signals.post_delete, sender=ProductImage)
-def auto_delete_file_on_delete(sender, instance, **kwargs):
-    if instance.image:
-        if os.path.isfile(instance.image.path):
-            os.remove(instance.image.path)
-
-
-@receiver(models.signals.pre_save, sender=ProductImage)
-def auto_delete_file_on_change(sender, instance, **kwargs):
-    if not instance.pk:
-        return False
-    try:
-        old_file = ProductImage.objects.get(pk=instance.pk).image
-    except ProductImage.DoesNotExist:
-        return False
-    try:
-        new_file = instance.image
-        if not old_file == new_file:
-            if os.path.isfile(old_file.path):
-                os.remove(old_file.path)
-    except:
-        pass

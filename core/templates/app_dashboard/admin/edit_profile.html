@@ -1,0 +1,119 @@
+{% extends 'app_dashboard/admin/_base.html' %}
+{% load static %}
+{% block dashboard_header %}
+    ویرایش پروفایل
+{% endblock %}
+
+{% block dashboard_content %}
+    <form action="{% url 'app_dashboard:admin:edit_profile' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+      <!-- Form -->
+      <div class="row mb-4">
+        <label class="col-sm-3 col-form-label form-label">عکس پروفایل</label>
+
+        <div class="col-sm-9">
+          <!-- Media -->
+          <div class="d-flex align-items-center">
+            <!-- Avatar -->
+            <label class="avatar avatar-xl avatar-circle" for="avatarUploader">
+              <img id="avatarImg" class="avatar-img" src="{{ object.image.url }}"
+                alt="Image Description">
+            </label>
+
+            <div class="d-grid d-sm-flex gap-2 me-4">
+              <div class="form-attachment-btn btn btn-primary btn-sm">آپلود عکس
+                <input type="file" class="js-file-attach form-attachment-btn-label" id="avatarUploader" name="image"
+                  data-hs-file-attach-options='{
+                          "textTarget": "#avatarImg",
+                          "mode": "image",
+                          "targetAttr": "src",
+                          "resetTarget": ".js-file-attach-reset-img",
+                          "resetImg": "",
+                          "allowTypes": [".png", ".jpeg", ".jpg"]
+                       }'>
+              </div>
+              <!-- End Avatar -->
+
+              <button type="button" onclick="deleteProfileImage('{% url "app_dashboard:admin:profile_delete_image" %}', '{{ csrf_token }}')" class="btn btn-white btn-sm" id="btn_remove_profile_image">حذف کردن</button>
+            </div>
+          </div>
+          <!-- End Media -->
+        </div>
+      </div>
+      <!-- End Form -->
+
+      <!-- Form -->
+      <div class="row mb-4">
+        <label for="firstNameLabel" class="col-sm-3 col-form-label form-label">نام و نام خانوادگی <i
+            class="bi-question-circle text-body ms-1" data-bs-toggle="tooltip" data-bs-placement="top"
+            title="Displayed on public forums, such as Front."></i></label>
+
+        <div class="col-sm-9">
+          <div class="input-group">
+            <input type="text" class="form-control" name="first_name" id="firstNameLabel"
+              placeholder="نام" aria-label="نام" value="{% if object.first_name %}{{ object.first_name }}{% endif %}">
+            <input type="text" class="form-control" name="last_name" id="lastNameLabel" placeholder="نام خانوادگی"
+              aria-label="نام خانوادگی" value="{% if object.last_name %}{{ object.last_name }}{% endif %}">
+          </div>
+        </div>
+      </div>
+      <!-- End Form -->
+
+      <!-- Form -->
+      <div class="row mb-4">
+        <label for="emailLabel" class="col-sm-3 col-form-label form-label">ایمیل</label>
+
+        <div class="col-sm-9">
+          <input type="email" class="form-control text-center" name="email" id="emailLabel"
+            placeholder="" aria-label="clarice@example.com" value="{{ object.user.email }}" disabled>
+        </div>
+      </div>
+      <!-- End Form -->
+
+      <!-- Form -->
+      <div class="js-add-field row mb-4" data-hs-add-field-options='{
+              "template": "#addPhoneFieldTemplate",
+              "container": "#addPhoneFieldContainer",
+              "defaultCreated": 0
+            }'>
+        <label for="phoneLabel" class="col-sm-3 col-form-label form-label">تلفن <span
+            class="form-label-secondary">(اختیاری)</span></label>
+
+        <div class="col-sm-9">
+          <div class="input-group">
+            <input type="text" class="form-control text-center" dir="ltr" name="phone_number" id="phoneLabel"
+              placeholder="09123456789" aria-label="09123456789" value="{% if object.phone_number %}{{ object.phone_number }}{% endif %}">
+          </div>
+        </div>
+      </div>
+      <!-- End Form -->
+
+      <!-- Add Phone Input Field -->
+      <div id="addPhoneFieldTemplate" style="display: none; position: relative;">
+        <div class="input-group input-group-add-field">
+          <input type="text" class="js-input-mask-dynamic form-control" data-name="additionlPhone"
+            placeholder="+x(xxx)xxx-xx-xx" aria-label="+x(xxx)xxx-xx-xx" data-hs-mask-options='{
+                   "mask": "+{0}(000)000-00-00"
+                 }'>
+
+        </div>
+
+        <a class="js-delete-field input-group-add-field-delete" href="javascript:;">
+          <i class="bi-x-lg"></i>
+        </a>
+      </div>
+      <!-- End Add Phone Input Field -->
+
+      <!-- Footer -->
+      <div class="card-footer pt-0">
+        <div class="d-flex justify-content-end gap-3">
+          <button type="submit" class="btn btn-primary" href="javascript:;">ذخیره تغییرات</button>
+        </div>
+      </div>
+      <!-- End Footer -->
+    </form>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/edit_profile.js' %}"></script>
+{% endblock %}
