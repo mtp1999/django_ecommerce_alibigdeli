@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
+from ckeditor.fields import RichTextField
 
 
 class ProductStatusType(models.IntegerChoices):
@@ -31,7 +32,7 @@ class Product(models.Model):
     price = models.DecimalField(default=0, max_digits=10, decimal_places=0)
     discount_percent = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     status = models.IntegerField(choices=ProductStatusType.choices, default=ProductStatusType.draft.value)
-    description = models.TextField(null=True, blank=True)
+    description = RichTextField(null=True, blank=True)
     brief_description = models.TextField(null=True, blank=True, max_length=300)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)

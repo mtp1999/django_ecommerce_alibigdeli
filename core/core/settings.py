@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'mail_templated',
+    'ckeditor',
 
     'app_account',
     'app_dashboard',
@@ -180,4 +181,14 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": "redis://redis:6379/1",
     }
+}
+
+# ckeditor
+CKEDITOR_UPLOAD_PATH = "ckeditor/uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 300,
+        'width': 300,
+    },
 }

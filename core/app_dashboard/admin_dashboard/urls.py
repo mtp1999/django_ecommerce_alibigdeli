@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from app_dashboard.admin_dashboard import views
 
 app_name = 'admin'
@@ -12,5 +14,8 @@ urlpatterns = [
     path('products/create/', views.ProductCreateView.as_view(), name='product_create'),
     path('products/edit/<int:pk>/', views.ProductUpdateView.as_view(), name='product_edit'),
     path('products/delete/<int:pk>/', views.ProductDeleteView.as_view(), name='product_delete'),
-
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

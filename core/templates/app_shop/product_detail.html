@@ -239,7 +239,7 @@
           <div class="pe-lg-4">
             <h3>جزئیات</h3>
               {% if object.description %}
-                <p>{{ object.description }}</p>
+                <p>{{ object.description|safe }}</p>
               {% endif %}
           </div>
         </div>

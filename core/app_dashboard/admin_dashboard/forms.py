@@ -1,4 +1,5 @@
 from django import forms
+from ckeditor.widgets import CKEditorWidget
 from app_account.models import Profile
 from app_shop.models import Product
 
@@ -31,6 +32,8 @@ class ProductCreateForm(forms.ModelForm):
 
 
 class ProductEditForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorWidget())
+
     class Meta:
         model = Product
         fields = [
