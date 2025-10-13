@@ -1,6 +1,5 @@
 from django.db import models
-from django.dispatch import receiver
-import os
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class ProductStatusType(models.IntegerChoices):
@@ -30,7 +29,7 @@ class Product(models.Model):
     image = models.ImageField(default='defaults/product.png', upload_to='products/main_image/', null=True, blank=True)
     stock = models.PositiveIntegerField(default=0)
     price = models.DecimalField(default=0, max_digits=10, decimal_places=0)
-    discount_percent = models.IntegerField(default=0)
+    discount_percent = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     status = models.IntegerField(choices=ProductStatusType.choices, default=ProductStatusType.draft.value)
     description = models.TextField(null=True, blank=True)
     brief_description = models.TextField(null=True, blank=True, max_length=300)
@@ -53,6 +52,11 @@ class Product(models.Model):
 
     def is_discounted(self):
         return False if self.discount_percent == 0 else True
+
+    def is_published(self):
+        if self.status == ProductStatusType.publish.value:
+            return True
+        return False
 
 
 class ProductImage(models.Model):

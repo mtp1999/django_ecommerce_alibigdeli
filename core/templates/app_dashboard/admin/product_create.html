@@ -1,0 +1,78 @@
+{% extends 'app_dashboard/admin/_base.html' %}
+{% load static %}
+{% load app_shop_tags %}
+
+{% block dashboard_header %}
+    ایجاد محصول جدید
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/app_dashboard/slugify.js' %}"></script>
+{% endblock %}
+
+{% block dashboard_content %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row d-flex">
+          <select name="user" required="" id="id_user" hidden>
+              <option value="{{ request.user.id }}" selected="">{{ request.user.email }}</option>
+          </select>
+          <div class="col-12 mb-3">
+            <label for="validationValidInput1">نام محصول</label>
+            {{ form.title }}
+          </div>
+          <div class="col-12 mb-3">
+            <label for="validationValidInput1">
+                اسلاگ محصول
+                <button type="button" onclick="setSlug()" class="btn btn-sm btn-light mx-1">ایجاد اسلاگ</button>
+            </label>
+            {{ form.slug }}
+          </div>
+          <div class="col-12 mb-3">
+            <label for="validationValidInput1">دسته بندی</label>
+            {{ form.category }}
+          </div>
+
+          <div class="col-md-6 mb-3">
+            <label for="validationValidInput1">تعداد</label>
+            {{ form.stock }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationValidSelect1">وضعیت</label>
+            {{ form.status }}
+            <span class="valid-feedback">Valid feedback</span>
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationValidInput1">قیمت</label>
+            {{ form.price }}
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="validationValidInput1">تخفیف(٪)</label>
+            {{ form.discount_percent }}
+          </div>
+
+          <div class="col-12 mb-3">
+            <label for="validationValidInput1">توضیح مختصر</label>
+            {{ form.brief_description }}
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label for="validationValidSelect1">توضیحات</label>
+            {{ form.description }}
+          </div>
+
+          <div class="col-md-12 mb-3">
+            <label for="validationValidFileInput1">تصویر محصول</label>
+            {{ form.image }}
+          </div>
+
+        <div class="card-footer">
+            <div class=" d-flex pt-5 justify-content-end">
+            <button type="submit" class="btn btn-primary ms-3">ایجاد محصول</button>
+            </div>
+        </div>
+
+
+        </div>
+    </form>
+{% endblock %}

@@ -8,4 +8,9 @@ urlpatterns = [
     path('change-password/', views.ChangePasswordView.as_view(), name='change_password'),
     path('edit-profile/', views.EditProfileView.as_view(), name='edit_profile'),
     path('profile-delete-image/', views.ProfileDeleteImageView.as_view(), name='profile_delete_image'),
+    path('products/list/', views.ProductListView.as_view(), name='product_list'),
+    path('products/create/', views.ProductCreateView.as_view(), name='product_create'),
+    path('products/edit/<int:pk>/', views.ProductUpdateView.as_view(), name='product_edit'),
+    path('products/delete/<int:pk>/', views.ProductDeleteView.as_view(), name='product_delete'),
+
 ]

@@ -4,6 +4,7 @@ from django.db.models import F
 from app_shop.models import Product, ProductStatusType
 from app_cart.cart import CartSession
 
+
 class ProductGridView(cbv.ListView):
     template_name = 'app_shop/product_grid.html'
     paginate_by = 9

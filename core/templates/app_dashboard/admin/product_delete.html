@@ -1,0 +1,22 @@
+{% extends 'app_dashboard/admin/_base.html' %}
+{% load static %}
+
+{% block dashboard_header %}
+    حذف محصول با کد
+    {{ object.pk }}
+{% endblock %}
+
+{% block dashboard_content %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-12 mb-3">
+                نام محصول:
+                {{ object.title }}
+            </div>
+            <div class="col-12">
+                <button type="submit" class="btn btn-danger">حذف</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
