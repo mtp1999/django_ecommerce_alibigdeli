@@ -1,0 +1,34 @@
+{% extends 'app_dashboard/admin/_base.html' %}
+{% load static %}
+
+{% block dashboard_header %}
+    عکس های محصول با کد
+    {{ product.pk }}
+{% endblock %}
+
+
+{% block dashboard_content %}
+    <div class="row mx-auto text-center">
+        <div class="col-12 mx-auto mb-3">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <p>
+                    <label for="id_image" class="form-label">اضافه کردن عکس</label>
+                    <input type="file" name="image" accept="image/*" required="" id="id_image" class="form-control">
+                </p>
+                <select name="product" required="" id="id_product" hidden>
+                  <option value="{{ product.pk }}" selected></option>
+                </select>
+                <button type="submit" class="btn btn-outline-primary">اضافه کردن</button>
+            </form>
+        </div>
+        <div class="col-12 border-top border-secondary border-opacity-50 py-3">
+            {% for image in images %}
+                <a href="{% url 'app_dashboard:admin:product_images_delete' image.pk %}">
+                    <img src="{{ image.image.url }}" width="50px" height="50px" class="mb-2 mx-1">
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

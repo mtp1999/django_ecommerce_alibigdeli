@@ -10,7 +10,8 @@ urlpatterns = [
     path('profile-delete-image/', views.ProfileDeleteImageView.as_view(), name='profile_delete_image'),
     path('products/list/', views.ProductListView.as_view(), name='product_list'),
     path('products/create/', views.ProductCreateView.as_view(), name='product_create'),
-    path('products/edit/<int:pk>/', views.ProductUpdateView.as_view(), name='product_edit'),
-    path('products/delete/<int:pk>/', views.ProductDeleteView.as_view(), name='product_delete'),
-
+    path('products/pid-<int:pk>/edit/', views.ProductUpdateView.as_view(), name='product_edit'),
+    path('products/pid-<int:pk>/delete/', views.ProductDeleteView.as_view(), name='product_delete'),
+    path('products/pid-<int:pk>/images/', views.ProductImageListView.as_view(), name='product_images'),
+    path('products/img-id-<int:pk>/delete/', views.ProductImageDeleteView.as_view(), name='product_images_delete'),
 ]

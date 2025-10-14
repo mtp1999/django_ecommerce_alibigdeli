@@ -1,6 +1,6 @@
 from django import forms
 from app_account.models import Profile
-from app_shop.models import Product
+from app_shop.models import Product, ProductImage
 
 
 class ProfileForm(forms.ModelForm):
@@ -60,3 +60,9 @@ class ProductEditForm(forms.ModelForm):
         self.fields['stock'].widget.attrs.update({'type': 'number', 'class': 'form-control'})
         self.fields['discount_percent'].widget.attrs.update({'type': 'number', 'class': 'form-control', 'min': 0, 'max': 100})
         self.fields['price'].widget.attrs.update({'type': 'number', 'class': 'form-control', 'min': 0})
+
+
+class ProductImageForm(forms.ModelForm):
+    class Meta:
+        model = ProductImage
+        fields = '__all__'

@@ -11,8 +11,8 @@ from django.db.models import F
 from app_account.models import Profile
 from app_dashboard.utils import MessageMixin
 from app_dashboard.permissions import HasAdminPermissionsMixin
-from app_dashboard.admin_dashboard.forms import ProfileForm, ProductCreateForm, ProductEditForm
-from app_shop.models import Product
+from app_dashboard.admin_dashboard.forms import ProfileForm, ProductCreateForm, ProductEditForm, ProductImageForm
+from app_shop.models import Product, ProductImage
 
 
 class HomeView(HasAdminPermissionsMixin, LoginRequiredMixin, cbv.TemplateView):
@@ -131,3 +131,35 @@ class ProductDeleteView(HasAdminPermissionsMixin, cbv.DeleteView):
     def get_success_url(self):
         messages.success(self.request, 'حذف محصول با موفقیت انجام شد.')
         return reverse('app_dashboard:admin:product_list')
+
+
+class ProductImageListView(HasAdminPermissionsMixin, cbv.CreateView):
+    template_name = 'app_dashboard/admin/product_images.html'
+    form_class = ProductImageForm
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context['product'] = Product.objects.get(pk=self.kwargs.get('pk'))
+        context['images'] = ProductImage.objects.filter(product__id=self.kwargs.get('pk'))
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, 'عکس جدید با موفقیت اضافه شد!')
+        return reverse('app_dashboard:admin:product_images', kwargs={'pk': self.kwargs.get('pk')})
+
+
+class ProductImageDeleteView(LoginRequiredMixin, cbv.DeleteView):
+    template_name = 'app_dashboard/admin/product_images_delete.html'
+
+    def get_queryset(self):
+        image = ProductImage.objects.filter(pk=self.kwargs.get('pk'))
+        return image
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=None, **kwargs)
+        context['product_id'] = self.get_queryset().get(pk=self.kwargs.get('pk')).product.pk
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, 'عکس مورد نظر با موفقیت حذف شد!')
+        return reverse('app_dashboard:admin:product_images', kwargs={'pk': self.get_context_data()['product_id']})

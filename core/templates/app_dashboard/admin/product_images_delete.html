@@ -1,0 +1,19 @@
+{% extends 'app_dashboard/admin/_base.html' %}
+{% load static %}
+
+{% block dashboard_header %}
+    حذف عکس با کد
+    {{ object.pk }}
+{% endblock %}
+
+{% block dashboard_content %}
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-12 mb-3 text-center">
+            <img src="{{ object.image.url }}" width="100px" height="100px" class="shadow-sm rounded-2">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-danger">حذف عکس</button>
+        </div>
+    </form>
+{% endblock %}
