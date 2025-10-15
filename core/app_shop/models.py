@@ -40,7 +40,7 @@ class Product(models.Model):
         db_table = 'app_shop_product'
 
     def __str__(self):
-        return str(self.id) + '[' + str(self.title) + ']'
+        return str(self.id) + '-' + str(self.slug)
 
     @property
     def get_price(self):

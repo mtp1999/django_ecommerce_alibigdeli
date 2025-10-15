@@ -9,6 +9,8 @@ class SessionAddProductView(cbv.View):
         cart = CartSession(request.session)
         if pid := request.POST.get('product_id'):
             cart.add_product(pid)
+            if request.user.is_authenticated:
+                cart.sync_db_session_pre_logout(request.user)
         return JsonResponse({'cart': cart.get_cart_items(), 'quantity': cart.get_cart_total_quantity()})
 
 
@@ -17,6 +19,8 @@ class SessionRemoveProductView(cbv.View):
         cart = CartSession(request.session)
         if pid := request.POST.get('product_id'):
             cart.remove_product(pid)
+            if request.user.is_authenticated:
+                cart.sync_db_session_pre_logout(request.user)
         return JsonResponse({'cart': cart.get_cart_items()})
 
 
@@ -27,6 +31,8 @@ class SessionChangeProductQuantityView(cbv.View):
             pid = request.POST.get('product_id')
             quantity = request.POST.get('quantity')
             cart.change_product_quantity(pid, quantity)
+            if request.user.is_authenticated:
+                cart.sync_db_session_pre_logout(request.user)
             return JsonResponse({'cart': cart.get_cart_items()})
         except:
             return redirect(request.path)
@@ -39,6 +45,5 @@ class SessionCartSummaryView(cbv.TemplateView):
         context = super().get_context_data(**kwargs)
         cart = CartSession(self.request.session)
         context['cart_details'] = cart.get_cart_details(with_products=True)
-        print(context['cart_details'])
         return context
 

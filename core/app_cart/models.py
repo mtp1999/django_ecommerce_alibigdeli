@@ -11,7 +11,7 @@ class Cart(models.Model):
         ordering = ('-created_date',)
 
     def __str__(self):
-        return str(self.id) + '-' + str(self.user)
+        return str(self.user)
 
 
 class CartItem(models.Model):
@@ -26,4 +26,4 @@ class CartItem(models.Model):
         ordering = ('-created_date',)
 
     def __str__(self):
-        return str(self.cart) + '-' + str(self.product)
+        return str(self.cart) + ':' + str(self.product) + ':' + str(self.quantity)
